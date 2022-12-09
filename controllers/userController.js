@@ -104,46 +104,42 @@ const createUser = async (req, res) => {
          }
     };
   
-//     /api/users/:userId/friends/:friendId
+  // Post for adding a friend route
+   const addFriend = async (req, res) => {
+      try {
+        const addFriendData = await User.findOneAndUpdate(
+          { _id: req.params.studentId },
+          { $addToSet: { friends: req.params.friendId } },
+          { runValidators: true, new: true }
+        )
 
-// POST to add a new friend to a user's friend list
+        !addFriendData
+        ? res.status(400).json({ message: 'No such user exists'})
+        : res.status(200).json(addFriendData)
 
-// DELETE to remove a friend from a user's friend list
+      } catch (err) {
+           console.error(err)
+           res.status(500).json(err)
+         }
+    };
 
+  // Delete for deleting a friend route
+   const deleteFriend = async (req, res) => {
+      try {
+        const deleteFriendData = await User.findOneAndUpdate(
+          { _id: req.params.studentId },
+          { $pull: { friends: req.params.friendId } },
+          { runValidators: true, new: true }
+        )
 
-  // Add an assignment to a student
-  addAssignment(req, res) {
-    console.log('You are adding an assignment');
-    console.log(req.body);
-    Student.findOneAndUpdate(
-      { _id: req.params.studentId },
-      { $addToSet: { assignments: req.body } },
-      { runValidators: true, new: true }
-    )
-      .then((student) =>
-        !student
-          ? res
-              .status(404)
-              .json({ message: 'No student found with that ID :(' })
-          : res.json(student)
-      )
-      .catch((err) => res.status(500).json(err));
-  },
-  // Remove assignment from a student
-  removeAssignment(req, res) {
-    Student.findOneAndUpdate(
-      { _id: req.params.studentId },
-      { $pull: { assignment: { assignmentId: req.params.assignmentId } } },
-      { runValidators: true, new: true }
-    )
-      .then((student) =>
-        !student
-          ? res
-              .status(404)
-              .json({ message: 'No student found with that ID :(' })
-          : res.json(student)
-      )
-      .catch((err) => res.status(500).json(err));
-  },
+        !deleteFriendData
+        ? res.status(400).json({ message: 'No such user exists'})
+        : res.status(200).json(deleteFriendData)
 
-module.exports = { getUsers, getSingleUser, createUser, deleteUser, updateUser }
+      } catch (err) {
+           console.error(err)
+           res.status(500).json(err)
+         }
+    };
+
+module.exports = { getUsers, getSingleUser, createUser, deleteUser, updateUser, addFriend, deleteFriend }
