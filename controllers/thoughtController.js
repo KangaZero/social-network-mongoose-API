@@ -109,11 +109,12 @@ const deleteReaction = async (req, res) => {
     const deleteReactionData = await Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
       { $pull: { reactions: {
+        // for subdocuments, the array.property needs to be explicity mentioned
+        // unable to delete the seeded (1st) reaction object
         "reactionId": req.params.reactionId
       } } },
       { runValidators: true, new: true }
     )
-
     !deleteReactionData
     ? res.status(400).json({ message: 'No such reaction exists'})
     : res.status(200).json(deleteReactionData)
