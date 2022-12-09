@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
-const { validateEmail } = require('./utils/validateEmail');
+// Unused 
+// const { validateEmail } = require('./utils/validateEmail');
 
 // Schema to create a course model
 const userSchema = new Schema(
@@ -14,10 +15,8 @@ const userSchema = new Schema(
       type: String,
       unique: true,
       required: true,
-      validate: {
-        [validateEmail, `Invalid email address`],
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
-      }
+      match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Invalid email address']
+  
     },
     thoughts: [
       {
@@ -40,7 +39,7 @@ const userSchema = new Schema(
     toJSON: {
       getters: true,
 
-      
+
       virtuals: true,
     },
     id: false,

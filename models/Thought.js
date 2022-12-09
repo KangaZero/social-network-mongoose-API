@@ -21,6 +21,7 @@ const thoughtSchema = new Schema(
   },
   { 
     timestamps: true 
+    // allows createdAt and updatedAt method to be called (eg.thoughtSchema.updatedAt())
   },
   {
     toJSON: {
@@ -32,10 +33,9 @@ const thoughtSchema = new Schema(
 );
 
 // Create a virtual called reactionCount that retrieves the length of the thought's reactions array field on query.
-thoughtSchema.virtual('reactionCount ').get(function () {
+thoughtSchema.virtual('reactionCount').get(function () {
   return this.reactions.length;
 });
-
 
 const Thought = model('Thought', thoughtSchema);
 
