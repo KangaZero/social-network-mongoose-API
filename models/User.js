@@ -1,6 +1,4 @@
 const { Schema, model } = require('mongoose');
-// Unused 
-// const { validateEmail } = require('./utils/validateEmail');
 
 // Schema to create a course model
 const userSchema = new Schema(
@@ -32,7 +30,7 @@ const userSchema = new Schema(
     ],
     dateCreated: {
       type: Date,
-      default:  new Date(Date.now()),
+      default: new Date(Date.now()),
     },
   },
   {

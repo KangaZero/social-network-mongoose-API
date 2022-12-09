@@ -1,4 +1,5 @@
 const { Schema, Types } = require('mongoose');
+
 // subdocument schema for Thought model
 const ReactionSchema = new Schema(
   {
@@ -18,7 +19,7 @@ const ReactionSchema = new Schema(
     },
     createdAt: {
       type: Date,
-      default:  new Date(Date.now())
+      default: new Date(Date.now()),
     },
   },
   {
