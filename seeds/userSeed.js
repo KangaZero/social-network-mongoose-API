@@ -1,4 +1,3 @@
-
 const usersArray = [
   {
   username: 'Arely',
