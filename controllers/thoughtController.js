@@ -52,7 +52,7 @@ const createThought = async (req, res) => {
 // Delete route 
 const deleteThought = async (req, res) => {
   try {
-    const deleteThoughtData = await Thought.findOneAndRemove({ _id: req.params.userId })
+    const deleteThoughtData = await Thought.findOneAndRemove({ _id: req.params.thoughtId })
 
     !deleteThoughtData
     ? res.status(400).json({ message: 'No such thought exists'})
@@ -108,12 +108,14 @@ const deleteReaction = async (req, res) => {
   try {
     const deleteReactionData = await Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $pull: { reactions: req.params.reactionId } },
+      { $pull: { reactions: {
+        "reactionId": req.params.reactionId
+      } } },
       { runValidators: true, new: true }
     )
 
     !deleteReactionData
-    ? res.status(400).json({ message: 'No such thought exists'})
+    ? res.status(400).json({ message: 'No such reaction exists'})
     : res.status(200).json(deleteReactionData)
 
   } catch (err) {

@@ -32,14 +32,12 @@ const userSchema = new Schema(
     ],
     dateCreated: {
       type: Date,
-      default: Date.now(),
+      default:  new Date(Date.now()),
     },
   },
   {
     toJSON: {
       getters: true,
-
-
       virtuals: true,
     },
     id: false,

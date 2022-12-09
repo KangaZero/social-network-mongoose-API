@@ -24,7 +24,7 @@ router.route('/:thoughtId')
 router.route('/:thoughtId/reactions/')
   .post(createReaction);
 
-// /api/students/:studentId/assignments/:assignmentId
+// /api/thoughts/:thoughtId/reactions/:reactionId
 router.route('/:thoughtId/reactions/:reactionId')
   .delete(deleteReaction);
 

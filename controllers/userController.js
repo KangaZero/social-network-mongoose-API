@@ -89,7 +89,7 @@ const createUser = async (req, res) => {
           { _id: req.params.userId },
           { $addToSet: { friends: req.params.friendId } },
           { runValidators: true, new: true }
-        )
+        ).populate('friends')
 
         !addFriendData
         ? res.status(400).json({ message: 'No such user exists'})
